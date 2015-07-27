@@ -38,11 +38,19 @@ import java.util.List;
 import java.util.Random;
 
 public class CheeseListFragment extends Fragment {
+    int rand = 1;
+    private RecyclerView rv;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        rand = 10 + (int) (Math.random()*3);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView rv = (RecyclerView) inflater.inflate(
+        rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_cheese_list, container, false);
         setupRecyclerView(rv);
         return rv;
@@ -51,7 +59,7 @@ public class CheeseListFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Cheeses.sCheeseStrings, 30)));
+                getRandomSublist(Cheeses.sCheeseStrings, rand * 5)));
     }
 
     private List<String> getRandomSublist(String[] array, int amount) {
@@ -61,6 +69,10 @@ public class CheeseListFragment extends Fragment {
             list.add(array[random.nextInt(array.length)]);
         }
         return list;
+    }
+
+    public RecyclerView getRV() {
+        return rv;
     }
 
     public static class SimpleStringRecyclerViewAdapter

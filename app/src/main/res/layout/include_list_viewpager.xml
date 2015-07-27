@@ -14,8 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.support.android.designlibdemo.MyCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -46,7 +45,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -56,4 +55,4 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_done" />
 
-</android.support.design.widget.CoordinatorLayout>
+</com.support.android.designlibdemo.MyCoordinatorLayout>
