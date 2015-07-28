@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
+    <com.support.android.designlibdemo.ControllableAppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height"
@@ -56,7 +56,7 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.support.android.designlibdemo.ControllableAppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

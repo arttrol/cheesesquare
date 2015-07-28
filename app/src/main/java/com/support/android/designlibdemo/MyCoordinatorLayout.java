@@ -27,6 +27,9 @@ public class MyCoordinatorLayout extends CoordinatorLayout {
 
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        if (listener != null){
+            listener.checkActionBarState();
+        }
         super.onNestedPreScroll(target, dx, dy, consumed);
         Log.d(TAG, "onNestedPreScroll() called with " + "], dx = [" + dx + "], dy = [" + dy + "], consumed = [" + consumed + "]");
         isNestedScrollCalled = false;

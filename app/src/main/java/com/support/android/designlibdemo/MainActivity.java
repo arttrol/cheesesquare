@@ -56,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
     private CheeseListFragment f2;
     private CheeseListFragment f3;
     private Toolbar toolbar;
-    private AppBarLayout appBarLayout;
+    private ControllableAppBarLayout appBarLayout;
     private MyCoordinatorLayout coordinatorLayout;
     private ViewPager viewPager;
     private Adapter adapter;
+    private ControllableAppBarLayout.State abState;
 
 
     @Override
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout = (ControllableAppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
@@ -153,21 +154,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final String TAG = "MainActivity";
+    public void checkActionBarState() {
+        if (abState == ControllableAppBarLayout.State.IDLE) {
+            abState = appBarLayout.getState();
+        }
+    }
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void checkActionBarPosition() {
         Log.e(TAG, "checkActionBarPosition " + toolbar.getTranslationY() + "  " + appBarLayout.getY()
         + " " + coordinatorLayout.getScrollY() + " " + coordinatorLayout.getScrollY());
 
-        if (-appBarLayout.getY() > appBarLayout.getTotalScrollRange() / 2) {
-//            coordinatorLayout.dispatchNestedFling(0, 300f, true);
-//            coordinatorLayout.dispatchNestedPreFling(0, 300f);
-            aaa(adapter.getRecyclerView(viewPager.getCurrentItem()), 500f);
-//            coordinatorLayout.onNestedPreFling(adapter.getRecyclerView(viewPager.getCurrentItem()), 0, -300f);
-//            appBarLayout.setY(-appBarLayout.getTotalScrollRange());
+        if (abState == ControllableAppBarLayout.State.IDLE) return;
+        if (abState == ControllableAppBarLayout.State.COLLAPSED) {
+            appBarLayout.expandToolbar(true);
         } else {
-//            appBarLayout.setY(0);
-            aaa(adapter.getRecyclerView(viewPager.getCurrentItem()), -500f);
+            appBarLayout.collapseToolbar(true);
         }
+
+//        if (-appBarLayout.getY() > appBarLayout.getTotalScrollRange() / 2) {
+//
+////            coordinatorLayout.dispatchNestedFling(0, 300f, true);
+////            coordinatorLayout.dispatchNestedPreFling(0, 300f);
+////            aaa(adapter.getRecyclerView(viewPager.getCurrentItem()), 500f);
+////            coordinatorLayout.onNestedPreFling(adapter.getRecyclerView(viewPager.getCurrentItem()), 0, -300f);
+////            appBarLayout.setY(-appBarLayout.getTotalScrollRange());
+//
+//        } else {
+////            appBarLayout.setY(0);
+////            aaa(adapter.getRecyclerView(viewPager.getCurrentItem()), -500f);
+//
+//            appBarLayout.expandToolbar(true);
+//        }
+        abState = ControllableAppBarLayout.State.IDLE;
     }
 
     private void aaa(View target, float velocityY){
